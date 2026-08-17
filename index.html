@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ♡</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  overflow-x:hidden;
+  font-family:Arial,sans-serif;
+  color:white;
+  background:
+    radial-gradient(circle at 20% 20%,#9b55c9 0 2px,transparent 3px),
+    radial-gradient(circle at 80% 30%,#ffd7e8 0 1px,transparent 2px),
+    linear-gradient(145deg,#16081d,#35102f 55%,#581f35);
+  background-size:180px 180px,230px 230px,100% 100%;
+}
+
+.page{
+  min-height:100vh;
+  padding:28px 16px 50px;
+  display:flex;
+  justify-content:center;
+}
+
+.card{
+  width:100%;
+  max-width:560px;
+  text-align:center;
+}
+
+.badge{
+  display:inline-block;
+  padding:12px 22px;
+  border-radius:40px;
+  background:#ffc94f;
+  color:#3a2418;
+  font-weight:bold;
+  letter-spacing:2px;
+}
+
+h1{
+  font-size:clamp(36px,9vw,55px);
+  margin:70px 0 12px;
+}
+
+.sub{
+  font-size:17px;
+  line-height:1.5;
+  opacity:.9;
+}
+
+.balloons{
+  height:340px;
+  position:relative;
+  margin-top:20px;
+}
+
+.balloon{
+  position:absolute;
+  width:110px;
+  height:145px;
+  border-radius:52% 48% 50% 50%;
+  cursor:pointer;
+  transition:.3s;
+  box-shadow:
+    inset -18px -15px 30px #0002,
+    inset 15px 12px 25px #fff5;
+}
+
+.balloon:after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-105px;
+  width:2px;
+  height:105px;
+  background:#ddd;
+}
+
+.balloon:before{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-7px;
+  transform:translateX(-50%);
+  border-left:7px solid transparent;
+  border-right:7px solid transparent;
+  border-top:12px solid #555;
+}
+
+.balloon.popped{
+  transform:scale(.05);
+  opacity:0;
+  pointer-events:none;
+}
+
+.b1{
+  left:2%;
+  bottom:45px;
+  background:#9d82ef;
+  transform:rotate(-3deg);
+}
+
+.b2{
+  left:calc(50% - 55px);
+  bottom:95px;
+  background:#43c8c0;
+}
+
+.b3{
+  right:2%;
+  bottom:35px;
+  background:#ff8c72;
+  transform:rotate(3deg);
+}
+
+.reason{
+  text-align:left;
+  border:2px solid #ff77ae;
+  border-radius:28px;
+  padding:20px;
+  background:#38142dcc;
+  margin-top:10px;
+  min-height:130px;
+}
+
+.reason small{
+  display:inline-block;
+  padding:8px 14px;
+  border-radius:20px;
+  background:#6b4a3d;
+  color:#ffd04f;
+  font-weight:bold;
+  letter-spacing:1px;
+}
+
+.reason p{
+  font-size:19px;
+  line-height:1.5;
+  margin:16px 0 0;
+  font-weight:600;
+}
+
+.note{
+  display:none;
+  margin-top:28px;
+  background:#fff7df;
+  color:#35251e;
+  border-radius:18px;
+  padding:28px 22px;
+  text-align:left;
+  box-shadow:0 12px 40px #0005;
+}
+
+.note h2{
+  margin-top:0;
+  font-family:cursive;
+  font-size:28px;
+}
+
+.note p{
+  font-family:cursive;
+  font-size:19px;
+  line-height:1.65;
+}
+
+.sign{
+  text-align:right;
+  font-family:cursive;
+  font-size:21px;
+  font-weight:bold;
+}
+
+button{
+  margin-top:25px;
+  border:0;
+  border-radius:40px;
+  padding:16px 45px;
+  font-size:19px;
+  font-weight:bold;
+  color:white;
+  background:linear-gradient(90deg,#ff6d57,#ffb34d);
+  cursor:pointer;
+}
+
+.footer{
+  margin-top:22px;
+  opacity:.6;
+  font-size:13px;
+}
+
+.confetti{
+  position:fixed;
+  top:-20px;
+  width:8px;
+  height:14px;
+  animation:fall 3s linear forwards;
+  pointer-events:none;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(720deg);
+    opacity:0;
+  }
+}
+
+@media(max-width:380px){
+  .balloon{
+    width:90px;
+    height:125px;
+  }
+
+  .b2{
+    left:calc(50% - 45px);
+  }
+
+  h1{
+    margin-top:55px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+<main class="card">
+
+<div class="badge">♡ A LITTLE SURPRISE</div>
+
+<h1>Pop the balloons 🎈</h1>
+
+<div class="sub">
+Three balloons. Each one holds a little reason you're special. Pop them all.
+</div>
+
+<div class="balloons">
+
+<div class="balloon b1" data-i="0"></div>
+<div class="balloon b2" data-i="1"></div>
+<div class="balloon b3" data-i="2"></div>
+
+</div>
+
+<section class="reason">
+
+<small id="label">REASON NO.1 💗</small>
+
+<p id="reasonText">
+We met just days ago, yet somehow you already feel special.
+</p>
+
+</section>
+
+<section class="note" id="note">
+
+<h2>Happy Birthday, Leni! 🎂</h2>
+
+<p>
+In such a short time, you've become a feeling I can't simply put into words.
+I don't know what tomorrow holds for us, but I hope it holds something beautiful too.
+I hope this year takes you closer to every dream you carry.
+</p>
+
+<p>
+On your special day, I hope you remember how deeply you deserve happiness.
+May your smile always have a reason, so that my smile never fades out.
+</p>
+
+<div class="sign">
+With all my love,<br>
+— Yuvi
+</div>
+
+</section>
+
+<button id="continue" style="display:none">
+Continue ♡
+</button>
+
+<div class="footer">
+Made with a little bit of code & a lot of thought.
+</div>
+
+</main>
+</div>
+
+<script>
+
+const reasons = [
+
+"We met just days ago, yet somehow you already feel special.",
+
+"Talking to you has made ordinary moments feel a little brighter.",
+
+"I don't know what tomorrow holds, but I genuinely hope it's beautiful for you."
+
+];
+
+let popped = 0;
+
+const balloons = document.querySelectorAll(".balloon");
+const label = document.getElementById("label");
+const text = document.getElementById("reasonText");
+const note = document.getElementById("note");
+const cont = document.getElementById("continue");
+
+balloons.forEach(function(balloon){
+
+  balloon.addEventListener("click",function(){
+
+    if(balloon.classList.contains("popped")) return;
+
+    balloon.classList.add("popped");
+    popped++;
+
+    if(popped < 3){
+
+      label.textContent = "REASON NO." + (popped + 1) + " 💗";
+      text.textContent = reasons[popped];
+
+    }else{
+
+      label.textContent = "ALL POPPED ✨";
+
+      text.textContent =
+      "You found every little reason. There's one last thing waiting below…";
+
+      cont.style.display = "inline-block";
+    }
+
+    makeConfetti();
+
+  });
+
+});
+
+cont.onclick = function(){
+
+  note.style.display = "block";
+
+  cont.textContent = "♡ A little letter for you";
+
+  window.scrollTo({
+    top:document.body.scrollHeight,
+    behavior:"smooth"
+  });
+
+};
+
+function makeConfetti(){
+
+  for(let i=0;i<18;i++){
+
+    const piece = document.createElement("i");
+
+    piece.className = "confetti";
+
+    piece.style.left = Math.random()*100 + "vw";
+
+    piece.style.background =
+      ["#ff6d57","#ffc94f","#9d82ef","#43c8c0","#ff8cba"]
+      [Math.floor(Math.random()*5)];
+
+    piece.style.animationDelay =
+      Math.random()*0.4 + "s";
+
+    document.body.appendChild(piece);
+
+    setTimeout(function(){
+      piece.remove();
+    },3400);
+
+  }
+
+}
+
+</script>
+
+</body>
+  </html>
